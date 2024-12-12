@@ -1,0 +1,15 @@
+.registerPage{
+    display: flex;
+    justify-content: center;
+}
+.registerDiv{
+    height: 500px;
+    width:400px;
+    margin-top:100px;
+    background-color: aqua;
+}
+.group{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

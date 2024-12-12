@@ -1,0 +1,29 @@
+.profileHeader{
+    height: 70px;
+    width: 100%;
+    background-color: #fb5c5a;
+}
+.profilePage{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.profileContent{
+    margin-top: 20px;
+    height: fit-content;
+    width: 80%;
+    background-color: pink;
+    display: grid;
+    grid-template-columns: 33% 67%;
+    grid-template-rows:300px 500px ;
+
+
+}
+.profileImageDiv{
+   
+    background-color: gray;
+}
+.detailsDiv{
+   
+    background-color: black;
+}

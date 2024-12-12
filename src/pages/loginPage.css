@@ -1,0 +1,11 @@
+.loginPage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loginDiv{
+    background-color: grey;
+    margin-top: 150px;
+    height: 50vh;
+    width: 40%;
+}

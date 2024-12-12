@@ -1,0 +1,24 @@
+.changeSalaryTypeDiv{
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.changeSalaryTypeLabel{
+    font-size: 12px;
+}
+.changeSalaryType{
+    height: 15px;
+    width: 30px;
+    border-radius: 30px;
+    border: 1px solid grey;
+    background-color: rgb(220, 216, 216);
+    position: relative;
+    cursor: pointer;
+}
+.changeSalaryTypeInnerBall{
+    width: 15px;
+    height: 15px;
+    background-color: rgb(52, 51, 51);
+    position: absolute;
+    border-radius: 50%;
+}
