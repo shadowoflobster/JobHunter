@@ -1,0 +1,58 @@
+.jobListingsDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F8F8F8;
+    gap: 3px;
+}
+.job-listings-container{
+    display: flex;
+    width: 87%;
+    gap: 3.41rem;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center; 
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+.job-div{
+    height: 19rem;
+    width: 31.87rem;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+}
+.job-time-and-location-div-container{
+    display: flex;
+    gap: 1.6rem ;
+    padding-top: 2.37rem;
+    padding-left: 2.75rem;
+}
+.job-time-and-location-div{
+    border: 1px solid #111111;
+    width: fit-content;
+    border-radius: 50px;
+    padding:8px 22px 8px 22px;
+}
+.logo-and-title-container{
+    display: flex;
+    align-items: center;
+    gap: 1.43rem;
+}
+.logo-div{
+    width: 3.62rem;
+    height: 3.62rem;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+.listing-title{
+    font-size: 2em;
+}
+
+.jobDiv{
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    background-color: pink;
+    border: 1px solid gray;
+    justify-content: space-between;
+    border-radius: 10px;
+}

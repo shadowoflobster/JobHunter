@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./uploadJob.css";
+import { jwtDecode } from 'jwt-decode';
+import Header from '../../components/Header/header'
+
+
 
 function UploadJob() {
   const [formData, setFormData] = useState({
@@ -11,6 +15,7 @@ function UploadJob() {
     maxSalary: "",
     currency: "",
     location: "",
+    
   });
   const [salaryType, setSalaryType] = useState({
     fixed: true,
@@ -51,31 +56,78 @@ function UploadJob() {
   };
 
   const innerBallRef = useRef(null);
+  //Function to change salary type between fixed and range
   const handleSalaryTypeChange = (e) => {
     const position = innerBallRef.current.style;
-    if (salaryType.fixed == true) {
+    if (salaryType.fixed === true) {
       position.left = "50%";
+      setFormData({...formData,  //while changing to range, fixed salary gets emptied,
+        salary:""});
       setSalaryType({
         fixed: false,
       });
+      
     } else {
       position.left = "0%";
+      setFormData({...formData, //while changing to fixed, range salary gets emptied,
+        minSalary:"",
+        maxSalary:""});
       setSalaryType({
         fixed: true,
       });
     }
   };
 
-  const logValue=()=>{
-    console.log("salary:"+formData.salary);
-    console.log("minsalary:"+formData.minSalary);
-    console.log("maxsalary:"+formData.maxSalary);
+  const token = localStorage.getItem('token');
+  let companyId;
+    if (token) {
+      const decoded = jwtDecode(token); // Decode the JWT
+      companyId = decoded.user_id; // Assuming company_id is in the token payload
+  }  
 
-  }
-  const handleSubmit = () => {};
+  
+
+  const handleSubmit = (e) => {
+    const data = {
+      title: formData.title,
+      description: formData.description,
+      requirements: formData.requirements,
+      salary: formData.salary,
+      minSalary: formData.minSalary,
+      maxSalary: formData.maxSalary,
+      currency: formData.currency,
+      location: formData.location,
+      company_id: companyId,
+    }
+    
+    fetch('http://localhost/api/uploadJob.php', {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => {
+      return response.text(); // Get raw text first
+    })
+    .then(data => {
+      console.log(data); // Log the raw response
+      try {
+        const jsonResponse = JSON.parse(data); // Parse JSON if valid
+        console.log(jsonResponse);
+      } catch (e) {
+        console.error("Invalid JSON:", data); // Handle invalid JSON
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+  };
 
   return (
     <div className="UploadJobDiv">
+      <Header></Header>
       <form onSubmit={handleSubmit}>
         <div className="group">
           <label htmlFor="job-title">Add job title</label>
@@ -83,7 +135,7 @@ function UploadJob() {
             type="text"
             id="title"
             name="title"
-            value={formData.jobTitle}
+            value={formData.title}
             onChange={handleChange}
             required
             placeholder="Enter job title"
@@ -109,7 +161,6 @@ function UploadJob() {
             name="requirements"
             onChange={handleRequirementChange}
             value={currentRequirement}
-            required
             placeholder="Enter job requirements"
           />
           <button className="add-requirements" onClick={addRequirements}>
@@ -187,14 +238,27 @@ function UploadJob() {
             name="currency"
             value={formData.currency} 
             onChange={handleChange}
+            required
             >
                 <option value="" disabled>Select currency</option>
                 <option>₾</option>
                 <option>$</option>
                 <option>€</option>
             </select>
-            <button onClick={logValue}>asd</button>
           </div>
+          <div className="group">
+          <label htmlFor="location">Add job location</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            required
+            placeholder="Enter job location"
+          />
+        </div>
+          <button type="submit">Submit</button>
         </div>
       </form>
     </div>

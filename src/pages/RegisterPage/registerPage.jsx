@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import './registerPage.css';
+import Header from '../../components/Header/header'
+
 
 function RegisterPage(){
     const [formData, setFormData] = useState({
@@ -49,8 +51,9 @@ function RegisterPage(){
     };
 
     return(
-        <div className="registerPage">
-            <div className="registerDiv">
+        <div className="register-page">
+        <Header></Header>
+            <div className="register-div">
             <h2>Register</h2>
             <form onSubmit={handleSubmit}>
                 <div className="group">

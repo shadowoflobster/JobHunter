@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import "./loginPage.css";
-import "./registerPage.css";
+import Header from '../../components/Header/header'
+
 
 
 
@@ -13,7 +13,7 @@ function LoginPage() {
   }); 
 
   const navigate=useNavigate();
-
+  const token = localStorage.getItem('token');
 
   const handleChange = (e) => {
       const {name , value}= e.target;
@@ -49,7 +49,8 @@ function LoginPage() {
     .then((data) => {
         if(data.token){
             localStorage.setItem('token', data.token);
-           
+            
+           console.log(data);
             if(data.role=='user'){
               navigate("./profile")
             }else if(data.role=='company'){
@@ -65,8 +66,9 @@ function LoginPage() {
   };
 
   return(
-      <div className="registerPage">
-          <div className="registerDiv">
+      <div className="register-page">
+         <Header></Header>
+          <div className="register-div">
           <h2>Login</h2>
           <form onSubmit={handleSubmit}>
 

@@ -1,8 +1,4 @@
-.profileHeader{
-    height: 70px;
-    width: 100%;
-    background-color: #fb5c5a;
-}
+
 .profilePage{
     display: flex;
     align-items: center;
@@ -26,4 +22,9 @@
 .detailsDiv{
    
     background-color: black;
+}
+.empty-login-div{
+    width: 200px;
+    height: 200px;
+    background-color: aqua;
 }

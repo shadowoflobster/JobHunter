@@ -1,15 +1,21 @@
 import React, {useState, useEffect} from 'react';
+import { useNavigate } from "react-router-dom";
 import './profile.css';
+import Header from '../../components/Header/header'
+
 
 function Profile(){
     const [user,setUser]= useState(null);
     const [error, setError]=useState(null);
-
+    const [authorization, setAuthorization] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const token = localStorage.getItem('token');
 
-        if (token) {    
+
+        if (token) {
+            setAuthorization(true);
             fetch('http://localhost/api/profile.php', {
                 method: 'GET',
                 headers: { 
@@ -42,13 +48,19 @@ function Profile(){
 
     return (
         <div className='profilePage'>
-            <div className='profileHeader'></div>
+        <Header role="user"  authorizationStatus={authorization ? true : false}></Header>
+        
+        {authorization && (
+                <>
             <div className='profileContent'>
                 <div className='profileImageDiv'></div>
                 <div className='detailsDiv'></div>
                 <div className='aboutMeDiv'></div>
                 <div className='experienceDiv'></div>
             </div>
+            </>
+            )}
+            
         </div>
     )
 }
