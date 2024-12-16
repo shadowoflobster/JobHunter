@@ -2,6 +2,7 @@ import React, {useEffect,useState} from "react";
 import './profileCompany.css';
 import { useNavigate } from "react-router-dom";
 import Header from '../../components/Header/header'
+import { jwtDecode } from 'jwt-decode';
 
 
 
@@ -9,14 +10,21 @@ import Header from '../../components/Header/header'
 function ProfileCompany(){
     //Const to check if user is authorized or not
     const [authorization, setAuthorization] = useState(false);
+    const [role, setRole] = useState();
 
     const navigate = useNavigate();
 
     //Get token from local Storage, if toke exists user is authorized
-    const token = localStorage.getItem('token');
-    if (token) {
-        setAuthorization(true);
-    }
+    useEffect(()=>{
+        const token = localStorage.getItem('token');
+        if(token){
+              setAuthorization(true);
+              const decoded = jwtDecode(token);
+              setRole(decoded.user_role);
+              console.log(role);
+            }
+    })
+    
 
 
     return(

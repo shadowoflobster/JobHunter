@@ -1,14 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import './jobListings.css'
 import Header from '../../components/Header/header'
+import { jwtDecode } from 'jwt-decode';
+
 
 function JobListings(){
     const [jobs, setJobs] = useState([]);
     const [error, setError] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [authorization, setAuthorization]=useState([]);
+    const [authorization, setAuthorization]=useState(false);
+    const [role, setRole] = useState();
+
+
+    
 
     useEffect(() =>{
+      const token = localStorage.getItem('token');
+    if(token){
+      setAuthorization(true);
+      const decoded = jwtDecode(token);
+      setRole(decoded.user_role);
+      console.log(role);
+    }
     fetch('http://localhost/api/listJobs.php')
         .then(response => response.json())
         .then(data =>{
@@ -27,7 +40,7 @@ function JobListings(){
     
     return (
         <div className="jobListingsDiv">
-          <Header></Header>
+          <Header role={role} authorizationStatus={authorization}></Header>
           {jobs.map((job) => {
             let requirements = [];
     

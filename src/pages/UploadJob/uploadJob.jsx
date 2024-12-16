@@ -21,6 +21,8 @@ function UploadJob() {
     fixed: true,
   });
   const [currentRequirement, setCurrentRequirement] = useState("");
+  const [authorization, setAuthorization] = useState(false);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,13 +79,16 @@ function UploadJob() {
       });
     }
   };
-
   const token = localStorage.getItem('token');
   let companyId;
+  useEffect(()=>{
+  
     if (token) {
+      setAuthorization(true);
       const decoded = jwtDecode(token); // Decode the JWT
       companyId = decoded.user_id; // Assuming company_id is in the token payload
   }  
+});
 
   
 
@@ -127,7 +132,7 @@ function UploadJob() {
 
   return (
     <div className="UploadJobDiv">
-      <Header></Header>
+      <Header role="company" authorizationStatus={authorization ? true : false}></Header>
       <form onSubmit={handleSubmit}>
         <div className="group">
           <label htmlFor="job-title">Add job title</label>

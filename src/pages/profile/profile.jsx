@@ -5,17 +5,21 @@ import Header from '../../components/Header/header'
 
 
 function Profile(){
+    //User saves users data from server
     const [user,setUser]= useState(null);
     const [error, setError]=useState(null);
     const [authorization, setAuthorization] = useState(false);
+    const [role, setRole] = useState();
     const navigate = useNavigate();
 
     useEffect(()=>{
         const token = localStorage.getItem('token');
 
-
+        
         if (token) {
             setAuthorization(true);
+            setRole(token.user_role);
+
             fetch('http://localhost/api/profile.php', {
                 method: 'GET',
                 headers: { 
@@ -48,7 +52,7 @@ function Profile(){
 
     return (
         <div className='profilePage'>
-        <Header role="user"  authorizationStatus={authorization ? true : false}></Header>
+        <Header role={role}  authorizationStatus={authorization}></Header>
         
         {authorization && (
                 <>
