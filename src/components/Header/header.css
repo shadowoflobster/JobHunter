@@ -8,10 +8,15 @@
 }
 .header-logo{
     height: 50px;
-    width: 200px;
+    width: 13rem;
     background-color: black;
     cursor: pointer;
     margin-left: 20px;
+}
+.header-profile-div{
+    height: fit-content;
+    width: fit-content;
+    
 }
 .header-profile{
     height: 40px;
@@ -30,6 +35,9 @@
     position: absolute;
     margin-top: 5px;
     display: none;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
     
 }
 .header-profile-menu-item{
@@ -39,4 +47,51 @@
 
 .header-profile-menu-item:hover{
     background-color: rgb(153, 153, 153);
+}
+.header-profile-menu[style*="display: block"] {
+    opacity: 1;
+    pointer-events: auto;
+}
+.header-list{
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+.header-list-item-link{
+    text-decoration: none;
+    color: black;
+}
+.header-right-content-div{
+    width: 20rem;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+
+}
+.header-authorize-div{
+    width: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.header-login-button{
+    height: 3rem;
+    width: 8rem;
+    background-color: black;
+    color: white;
+    border-radius: 50px;
+    outline: none;
+    cursor: pointer;
+}
+.header-signup-button{
+    height: 3rem;
+    width: 8rem;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 50px;
+    outline: none;
+    cursor: pointer;
+    
 }

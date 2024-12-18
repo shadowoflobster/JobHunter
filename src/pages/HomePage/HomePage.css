@@ -122,11 +122,16 @@
 .home-page-job-listing-button{
     width: 21rem;
     height: 3rem;
-    color: white;
+    color: black;
     margin: 10px auto;
-    background-color: black;
+    background-color: white;
     border-radius: 50px;
     cursor: pointer;
+    transition: 200ms ease-in-out;
+}
+.home-page-job-listing-button:hover{
+    color: white;
+    background-color: black;
 }
 .home-page-blogs-listing{
     display: flex;
