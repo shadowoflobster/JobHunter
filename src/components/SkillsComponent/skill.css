@@ -1,0 +1,42 @@
+.skill-outer-circle{
+    height: 140px;
+    width: 140px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.skill-inner-circle{
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background-color: white;
+}
+
+
+.skill-circle-svg{
+    position: absolute;
+    height: 130px;
+    width: 130px;
+}
+
+circle{
+    fill: none;
+    transform: translate(5px, 5px);    
+    stroke-dasharray: 377;
+    stroke-dashoffset: 377;
+    stroke-width: 10px;
+    
+}
+.skill-circle-svg circle:nth-child(1){
+    stroke-dashoffset: 0;
+    stroke:rgb(246, 243, 243);
+}
+
+.skill-inner-circle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

@@ -105,6 +105,10 @@
     margin-top: 2rem;
     padding-left: 2rem;
 }
+.home-page-listing-title{
+    max-height: 2rem;
+    font-size: 1.5em;
+}
 .logo-div{
     width: 3.62rem;
     height: 3.62rem;

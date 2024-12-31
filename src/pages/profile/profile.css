@@ -1,30 +1,93 @@
 
-.profilePage{
+.profile-page{
     display: flex;
     align-items: center;
     flex-direction: column;
 }
-.profileContent{
-    margin-top: 20px;
+.details-left{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+    margin-top: 1rem;
+    gap: 1rem;
+    }
+.details-name{
+    font-size: 2rem;
+
+}
+.details-right{
+    width: 50%;
+    margin-top: 1rem;
+
+}
+.profile-content{
+    margin-top: 3rem;
     height: fit-content;
     width: 80%;
-    background-color: pink;
     display: grid;
     grid-template-columns: 33% 67%;
     grid-template-rows:300px 500px ;
+    gap: 10px;
 
 
 }
-.profileImageDiv{
-   
-    background-color: gray;
+.profile-image-div{
+    display: flex;
+    justify-content: center;
 }
-.detailsDiv{
-   
-    background-color: black;
+.profile-image{
+    height: 15rem;
+    width: 15rem;
+    background-color: pink;
+    border-radius: 50%;
 }
-.empty-login-div{
-    width: 200px;
-    height: 200px;
-    background-color: aqua;
+.edit-group.address{
+    
+}
+.details-div{
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+}
+.name-position-div{
+    display: flex;
+     align-items: center;
+     gap: 10px;
+     
+}
+
+.edit-group{
+    position: relative;
+}
+.edit-pencil-icon{
+    position: absolute;
+    top: -60%;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.skills-div{
+    height: 100%;
+    background-color: white;
+    grid-column: 1/3;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding:0rem 3rem 0rem 3rem;
+}
+.skills-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+.skills-header-group{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.add-skill-button{
+    height: 2rem;
+    background-color: white;
+    border: none;
+    cursor: pointer;
 }

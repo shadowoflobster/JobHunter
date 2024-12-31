@@ -41,6 +41,9 @@ const Header = ({ role, authorizationStatus }) => {
   return (
     <div className="header">
       <div className="header-logo" onClick={()=>navigate("/home-page")}></div>
+      {(role === "company") && (
+        <button className="upload-job-btn" onClick={()=>navigate('/upload-job')}>Upload job</button>
+        )}
       <nav className="header-navigation">
         <ul className="header-list">
           <li className="header-list-item">

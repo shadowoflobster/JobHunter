@@ -1,0 +1,29 @@
+.add-skill-modal-overlay{
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color:rgba(53, 52, 52, 0.56);
+    position: fixed;
+    z-index: 1000;
+}
+.add-skill-modal{
+    height:30rem;
+    width: 20rem;
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%)
+
+}
+.modal-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.modal-form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

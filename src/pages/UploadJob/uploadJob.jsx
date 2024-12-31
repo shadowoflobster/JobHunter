@@ -13,14 +13,14 @@ function UploadJob() {
     maxSalary: "",
     currency: "",
     location: "",
-    jobType: "Logistics",
+    jobCategory: "",
   });
   const [salaryType, setSalaryType] = useState({
     fixed: true,
   });
   const [currentRequirement, setCurrentRequirement] = useState("");
   const [authorization, setAuthorization] = useState(false);
-  const jobTypes = [
+  const jobCategories = [
     "IT",
     "Engineering",
     "Medical",
@@ -141,7 +141,7 @@ function UploadJob() {
       currency: formData.currency,
       location: formData.location,
       company_id: companyId,
-      job_type: formData.jobType,
+      category: formData.jobCategory,
     };
     console.log(data);
  
@@ -297,19 +297,19 @@ function UploadJob() {
             </select>
           </div>
           <div className="group">
-            <label htmlFor="jobType"></label>
+            <label htmlFor="jobCategory"></label>
             <select
-              className="job-types-selector"
-              id="jobType"
-              name="jobType"
-              value={formData.jobType}
+              className="job-category-selector"
+              id="jobCategory"
+              name="jobCategory"
+              value={formData.jobCategory}
               onChange={handleChange}
               required
             >
               <option value="" disabled>
-                Select job type
+                Select job Category
               </option>
-               {jobTypes.map((job,index)=>
+               {jobCategories.map((job,index)=>
               <option key={index}>{job}</option>
               )} 
             </select>

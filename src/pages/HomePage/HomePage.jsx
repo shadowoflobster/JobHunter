@@ -39,7 +39,7 @@ function HomePage() {
 
   return (
     <div className="home-page-div">
-      <Header></Header>
+      <Header role={role} authorizationStatus={authorization}></Header>
       {/*Content 1*/}
       <div className="home-page-content-1">
         <h1 className="home-page-header">
@@ -91,6 +91,7 @@ function HomePage() {
                 requirements = job.requirements;
               }
               return (
+               
                 <div className="job-div" key={job.id}>
                   <div className="job-time-and-location-div-container">
                     <div className="job-time-and-location-div">Full Time</div>
@@ -100,10 +101,10 @@ function HomePage() {
                   </div>
                   <div className="logo-and-title-container">
                     <div className="logo-div"></div>
-                    <div className="listing-title">{job.title}</div>
+                    <div className="home-page-listing-title">{job.title}</div>
                   </div>
                   <div className="home-page-job-details-div">
-                    <p>{job.job_type}</p>|
+                    <p>{job.category}</p>|
                     {(job.salary) ? (<p>${job.salary}</p>) :
 
                     (job.minSalary && job.maxSalary) ? (<p>${job.minSalary}-{job.maxSalary}</p>) :
@@ -112,9 +113,13 @@ function HomePage() {
                     
                     <p>/Monthly</p>
                   </div>
+                  {(role=='company') ? (
+                    <p>You can't apply for job as a company but you are free to check out details</p>
+                  ) : (
                   <button className="home-page-job-listing-button">
                     Apply Now
                   </button>
+                  )}
                 </div>
               );
             })}
