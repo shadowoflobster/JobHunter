@@ -39,8 +39,10 @@ function JobListings(){
     if(loading) return <p>loading...</p>;
     
     return (
-        <div className="jobListingsDiv">
+      <div className='job-listings-div'>
           <Header role={role} authorizationStatus={authorization}></Header>
+          <div className="job-listings-container listing-page">
+
           {jobs.map((job) => {
             let requirements = [];
     
@@ -55,25 +57,41 @@ function JobListings(){
             }
     
             return (
-              <div key={job.id} className="jobDiv">
-                <p>{job.title}</p>
-                <p>{job.description}</p>
-                <p>
-                  ხელფასი: {job.salary} {job.currency}
-                </p>
-                <p>{job.location}</p>
-                <p>Company: {job.company_name}</p>
-                <div>
-                  <strong>Requirements:</strong>
-                  {requirements.length > 0 ? (
-                    requirements.map((req, index) => <p key={index}>{req}</p>)
+              <div key={job.id} className="job-div">
+                <div className="job-time-and-location-div-container">
+                    <div className="job-time-and-location-div">Full Time</div>
+                    <div className="job-time-and-location-div">
+                      {job.location}
+                    </div>
+                  </div>
+                  <div className="logo-and-title-container">
+                    <div className="logo-div"></div>
+                    <div className="home-page-listing-title">{job.title}</div>
+                  </div>
+                  <div className="home-page-job-details-div">
+                    <p>{job.category}</p>|
+                    {(job.salary) ? (<p>${job.salary}</p>) :
+
+                    (job.minSalary && job.maxSalary) ? (<p>${job.minSalary}-{job.maxSalary}</p>) :
+                    (job.minSalary) ? (<p>${job.minSalary}-?</p>) : (<p>$?-{job.maxSalary}</p>) 
+                    }
+                    
+                    <p>/Monthly</p>
+                  </div>
+                  {(role=='company') ? (
+                    <p>You can't apply for job as a company but you are free to check out details</p>
                   ) : (
-                    <p>No requirements listed.</p>
+                  <button className="home-page-job-listing-button">
+                    Apply Now
+                  </button>
                   )}
+                <div>
+                  
                 </div>
               </div>
             );
           })}
+        </div>
         </div>
       );
     }

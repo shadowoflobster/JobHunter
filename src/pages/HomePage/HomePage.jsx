@@ -77,19 +77,8 @@ function HomePage() {
           {/*Job listings*/}
           <div className="job-listings-container">
             {jobs.map((job) => {
-              let requirements = [];
 
-              if (typeof job.requirements === "string") {
-                try {
-                  requirements = JSON.parse(job.requirements);
-                } catch {
-                  requirements = job.requirements
-                    .split(",")
-                    .map((req) => req.trim());
-                }
-              } else if (Array.isArray(job.requirements)) {
-                requirements = job.requirements;
-              }
+              
               return (
                
                 <div className="job-div" key={job.id}>

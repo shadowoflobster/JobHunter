@@ -27,6 +27,7 @@ function Profile() {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   
+  
   const toggleEdit = (name) => {
     setEditableField((prevField) => (prevField === name ? null : name));
   };
@@ -52,22 +53,37 @@ function Profile() {
         })
         .catch((error) => {
           setError("Error fetching user data");
-          console.error("Error:", error);
+          // console.error("Error:", error);
         });
     } else {
       setError("No token found");
     }
 
-    // Log the object
   }, [parsedSkills]);
+
+
+  
   const handleConfirm = (fieldName, updatedSkills = null) => {
-    const updatedData  = updatedSkills
-    ?{
-      skills: [...(Array.isArray(user.skills) ? user.skills : []), ...updatedSkills],
-    }
-    :{[fieldName]:updatedUser[fieldName]};
+    const mergedSkills = updatedSkills
+    ? [
+        ...parsedSkills.filter(
+          (existingSkill) =>
+            !updatedSkills.some(
+              (newSkill) => newSkill.skillName === existingSkill.skillName
+            )
+        ),
+        ...updatedSkills,
+      ]
+    : parsedSkills;
 
+  const updatedData = updatedSkills
+    ? { skills: mergedSkills }
+    : { [fieldName]: updatedUser[fieldName] };
 
+  console.log("Merged Skills:", mergedSkills);
+      console.log("Parsed Skills:", parsedSkills);
+      console.log("Updated Skills:", updatedSkills);
+      
     fetch("http://localhost/api/updateProfile.php", {
       method: "POST",
       headers: {
@@ -78,14 +94,18 @@ function Profile() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("Server Response:", data);
         if (data.success) {
           setUser((prev) => ({
+            
             ...prev,
-            skills: updatedSkills ? [...prev.skills, ...updatedSkills] : prev.skills,
+            skills: updatedSkills ? [...parsedSkills, ...updatedSkills] : prev.skills,
+            
           }));
         }
       });
     setEditableField(null);
+    
   };
 
   return (

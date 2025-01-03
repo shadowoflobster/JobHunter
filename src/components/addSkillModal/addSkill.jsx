@@ -46,14 +46,16 @@ const AddSkill = ({ open, onClose, userSkills, updatedUser, setUpdatedUser, onCo
     const newSkill={
         ...skillData,
     }
-    setUpdatedUser((prevUser) => {
-      const updatedSkills = [...(Array.isArray(prevUser.skills) ? prevUser.skills : []), newSkill];
-      onConfirm(updatedSkills);
-      return{
+    const updatedSkills = Array.isArray(updatedUser.skills)
+      ? updatedUser.skills.filter((skill) => skill.skillName !== newSkill.skillName) // Avoid duplicates by name
+      : [];
+      updatedSkills.push(newSkill);
+      setUpdatedUser((prevUser) => ({
         ...prevUser,
-        skills: [...(Array.isArray(prevUser.skills) ? prevUser.skills : []), newSkill],
-      }
-    });
+        skills: updatedSkills,
+      }));
+      onConfirm(updatedSkills);
+
     onClose();
   }
 
