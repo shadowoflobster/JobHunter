@@ -1,6 +1,6 @@
-:root {
-    font-family: "Roboto";
-  }
+body {
+  font-family: 'Roboto', sans-serif;
+}
   
   body {
     font-family: inherit; /* Inherit from root font-family */

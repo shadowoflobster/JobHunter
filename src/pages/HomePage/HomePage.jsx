@@ -20,7 +20,6 @@ function HomePage() {
       setAuthorization(true);
       const decoded = jwtDecode(token);
       setRole(decoded.user_role);
-      console.log(role);
     }
     fetch("http://localhost/api/featuredJobs.php")
       .then((response) => response.json())
@@ -36,6 +35,12 @@ function HomePage() {
       })
       .finally(() => setLoading(false));
   }, []);
+
+  const handleNavigateToJob = (id) => {
+    navigate('/job-page', {
+      state: { jobId: id },
+    });
+  };
 
   return (
     <div className="home-page-div">
@@ -105,7 +110,7 @@ function HomePage() {
                   {(role=='company') ? (
                     <p>You can't apply for job as a company but you are free to check out details</p>
                   ) : (
-                  <button className="home-page-job-listing-button">
+                  <button className="home-page-job-listing-button" onClick={()=>handleNavigateToJob(job.id)}>
                     Apply Now
                   </button>
                   )}

@@ -95,8 +95,3 @@ const Header = ({ role, authorizationStatus }) => {
 };
 export default Header;
 
-{
-  /*{(role === "company") && (
-        <button className="upload-job-btn" onClick={()=>navigate('/upload-job')}>Upload job</button>
-        )}}*/
-}

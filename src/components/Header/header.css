@@ -1,3 +1,4 @@
+
 .header{
     height: 70px;
     width: 100%;
@@ -83,6 +84,7 @@
     border-radius: 50px;
     outline: none;
     cursor: pointer;
+    
 }
 .header-signup-button{
     height: 3rem;

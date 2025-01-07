@@ -9,7 +9,7 @@ import ProfileCompany from "./pages/ProfileCompany/profileCompany";
 import UploadJob from "./pages/UploadJob/uploadJob";
 import JobListings from "./pages/JobListings/jobListings";
 import HomePage from "./pages/HomePage/HomePage";
-
+import JobPage from "./pages/JobPage/JobPage";
 function App() {
 
   return (
@@ -23,6 +23,7 @@ function App() {
           <Route path="/profile-company" element={<ProfileCompany/>}/>
           <Route path="/upload-job" element={<UploadJob/>}/>
           <Route path="/job-listings" element={<JobListings/>}/>
+          <Route path="/job-page" element={<JobPage/>}/>
         </Routes>
       </div>
   );

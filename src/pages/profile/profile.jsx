@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import "./profile.css";
 import { jwtDecode } from "jwt-decode";
 import Header from "../../components/Header/header";
@@ -12,6 +13,7 @@ function Profile() {
   //User saves users data from server
   const [user, setUser] = useState({ skills: [] });
   const [updatedUser, setUpdatedUser] = useState({});
+  const [image, setImage]= useState(null);
   const [error, setError] = useState(null);
   const [authorization, setAuthorization] = useState(false);
   const [role, setRole] = useState();
@@ -26,8 +28,7 @@ function Profile() {
       : [];
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
-  
-  
+
   const toggleEdit = (name) => {
     setEditableField((prevField) => (prevField === name ? null : name));
   };
@@ -58,32 +59,29 @@ function Profile() {
     } else {
       setError("No token found");
     }
-
   }, [parsedSkills]);
 
-
-  
   const handleConfirm = (fieldName, updatedSkills = null) => {
     const mergedSkills = updatedSkills
-    ? [
-        ...parsedSkills.filter(
-          (existingSkill) =>
-            !updatedSkills.some(
-              (newSkill) => newSkill.skillName === existingSkill.skillName
-            )
-        ),
-        ...updatedSkills,
-      ]
-    : parsedSkills;
+      ? [
+          ...parsedSkills.filter(
+            (existingSkill) =>
+              !updatedSkills.some(
+                (newSkill) => newSkill.skillName === existingSkill.skillName
+              )
+          ),
+          ...updatedSkills,
+        ]
+      : parsedSkills;
 
-  const updatedData = updatedSkills
-    ? { skills: mergedSkills }
-    : { [fieldName]: updatedUser[fieldName] };
+    const updatedData = updatedSkills
+      ? { skills: mergedSkills }
+      : { [fieldName]: updatedUser[fieldName] };
 
-  console.log("Merged Skills:", mergedSkills);
-      console.log("Parsed Skills:", parsedSkills);
-      console.log("Updated Skills:", updatedSkills);
-      
+    console.log("Merged Skills:", mergedSkills);
+    console.log("Parsed Skills:", parsedSkills);
+    console.log("Updated Skills:", updatedSkills);
+
     fetch("http://localhost/api/updateProfile.php", {
       method: "POST",
       headers: {
@@ -97,16 +95,44 @@ function Profile() {
         console.log("Server Response:", data);
         if (data.success) {
           setUser((prev) => ({
-            
             ...prev,
-            skills: updatedSkills ? [...parsedSkills, ...updatedSkills] : prev.skills,
-            
+            skills: updatedSkills
+              ? [...parsedSkills, ...updatedSkills]
+              : prev.skills,
           }));
         }
       });
     setEditableField(null);
-    
   };
+
+  const handleImageChange=(e)=>{
+    setImage(e.target.files[0]);
+  }
+
+  const handleImageUpload = async () => {
+  if(!image) return alert('Please select an image');
+  const formData = new FormData();
+  formData.append('image',image);
+  
+  try{
+    const response = await axios.post(
+      'http://localhost/api/uploadImage.php',
+      formData,
+      {
+        headers:{
+          'Content-Type': 'multipart/form-data',
+          Authorization:`Bearer ${token}`,
+        },
+
+      }
+      
+    );
+    console.log(response.data);
+  }catch(error){
+    console.error('Upload failed', error);
+  }
+  };
+  
 
   return (
     <div className="profile-page">
@@ -116,7 +142,26 @@ function Profile() {
         <>
           <div className="profile-content">
             <div className="profile-image-div">
-              <img className="profile-image"></img>
+              <img
+                className="profile-image"
+                src={user?.profile_image || "default_image_url"}
+                alt="Profile"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                className="profile-image-input"
+                onChange={handleImageUpload}
+                
+              />
+              {editableField === "image" && (
+                <>
+                  <button onClick={() => handleConfirm("profile_image")}>
+                    Confirm
+                  </button>
+                  <button onClick={() => setEditableField(null)}>Cancel</button>
+                </>
+              )}
             </div>
             <div className="details-div">
               <div className="details-left">
@@ -263,7 +308,6 @@ function Profile() {
                     {user?.email || ""}
                   </span>
                 </div>
-                
               </div>
             </div>
 
@@ -282,13 +326,15 @@ function Profile() {
                   userSkills={Array.isArray(user.skills) ? user.skills : []}
                   updatedUser={updatedUser}
                   setUpdatedUser={setUpdatedUser}
-                  onConfirm={(updatedSkills) => handleConfirm("skills", updatedSkills)}
+                  onConfirm={(updatedSkills) =>
+                    handleConfirm("skills", updatedSkills)
+                  }
                 ></AddSkillModal>
               </div>
               <div className="skills-container">
                 {parsedSkills ? (
                   Object.keys(parsedSkills).map((skill) => {
-                    const { skillName, percentage, color,level } =
+                    const { skillName, percentage, color, level } =
                       parsedSkills[skill];
                     return (
                       <Skill

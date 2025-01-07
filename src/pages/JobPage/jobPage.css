@@ -1,0 +1,51 @@
+.job-page-wrapper{
+    width: 80%;
+    height: fit-content;
+    background-color: white;
+    margin: 20px auto;
+    box-shadow: 2px 2px 2px 1px #c7cac7cc;
+    border-radius:20px ;
+    overflow: hidden;
+}
+.job-page-header-containter{
+    padding: 2rem 3rem 0rem 3rem;
+    height: 10rem;
+
+}
+.job-page-wrapper-header{
+    height: 60%;
+    background-color: #ffffff;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.job-page-header-left{
+    display: block;
+    border-right: solid rgba(108, 105, 105, 0.204);
+    
+}
+.job-page-title-category-wrapper{
+    margin-top: 0.25rem;
+    display: flex;
+    gap: 1rem;
+}
+.job-page-category{
+    color: rgb(0, 0, 0, 0.45);
+}
+.job-page-salary{
+    color: rgb(0, 0, 0, 0.45);
+    letter-spacing: 0.1rem;
+}
+.job-page-content{
+    width: 80%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+.job-page-description{
+    width: 80%;
+}
+.job-page-requirements{
+    width: 80%;
+}

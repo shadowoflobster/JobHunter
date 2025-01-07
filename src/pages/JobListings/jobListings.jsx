@@ -31,7 +31,7 @@ function JobListings(){
                 setError(data.message);        }
     })
     .catch(() => {
-        setError('Failed to fetch data.'); // Handle network errors
+        setError('Failed to fetch data.'); 
       })
       .finally(() => setLoading(false));
     
