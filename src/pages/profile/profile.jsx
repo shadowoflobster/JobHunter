@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+
+
 import "./profile.css";
 import { jwtDecode } from "jwt-decode";
 import Header from "../../components/Header/header";
@@ -9,16 +11,22 @@ import emailIcon from "../../SVGs/mail-pencil-svgrepo-com.svg";
 import Skill from "../../components/SkillsComponent/skill";
 import AddSkillModal from "../../components/addSkillModal/addSkill";
 
+
+
 function Profile() {
   //User saves users data from server
   const [user, setUser] = useState({ skills: [] });
   const [updatedUser, setUpdatedUser] = useState({});
   const [image, setImage]= useState(null);
+  const [imageUrl, setImageUrl] = useState('');
   const [error, setError] = useState(null);
   const [authorization, setAuthorization] = useState(false);
   const [role, setRole] = useState();
   const [editableField, setEditableField] = useState(null);
   const [modalOn, setModalOn] = useState(false);
+  const [imageError, setImageError]=useState('');
+  const [profileHovered, setProfileHovered] = useState(false);
+  const imageInputRef=useRef(null);
   const navigate = useNavigate();
   const parsedSkills =
     user && user.skills
@@ -29,9 +37,14 @@ function Profile() {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
 
+
+
+
   const toggleEdit = (name) => {
     setEditableField((prevField) => (prevField === name ? null : name));
   };
+
+  
   useEffect(() => {
     if (token) {
       setAuthorization(true);
@@ -59,7 +72,7 @@ function Profile() {
     } else {
       setError("No token found");
     }
-  }, [parsedSkills]);
+  }, [token]);
 
   const handleConfirm = (fieldName, updatedSkills = null) => {
     const mergedSkills = updatedSkills
@@ -104,35 +117,76 @@ function Profile() {
       });
     setEditableField(null);
   };
+  const handleMouseEnter = () => {
+    setProfileHovered(true);
+    console.log("in")
+  };
+  const handleMouseLeave = () => {
+    setProfileHovered(false);
+    console.log("out")
+  };
+  const handleImageClick = () => {
+    if (imageInputRef.current) {
+      imageInputRef.current.click();
+    }
+  };
+
 
   const handleImageChange=(e)=>{
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    if(file){
+      const validFileTypes = ['image/jpeg', 'image/png']
+      
+      if(validFileTypes.includes(file.type)){
+        setImageError('');
+        setImage(file);
+      }else{
+        setImageError("Please choose valid image format(.jpg, .png)")
+        
+      }
+    }
   }
+  
+  useEffect(()=>{
+    if(image){
+      handleImageUpload();
+    }
+  },[image])  
 
   const handleImageUpload = async () => {
   if(!image) return alert('Please select an image');
-  const formData = new FormData();
-  formData.append('image',image);
-  
-  try{
-    const response = await axios.post(
-      'http://localhost/api/uploadImage.php',
-      formData,
-      {
-        headers:{
-          'Content-Type': 'multipart/form-data',
-          Authorization:`Bearer ${token}`,
-        },
 
-      }
-      
-    );
-    console.log(response.data);
-  }catch(error){
-    console.error('Upload failed', error);
+  const formData = new FormData();
+  formData.append('file',image);
+  formData.append('public_id',"userId"+decoded.user_id)
+ 
+
+  try {
+    const response = await fetch('http://localhost/api/uploadImage.php', {
+      method: 'POST',
+      body: formData
+    });
+
+    
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Upload successful:', data);
+      const uploadedImageUrl = data.secure_url;
+      const imageUrlWithCacheBusting = uploadedImageUrl + '?v=' + Date.now(); 
+      console.log('Image URL (with cache busting):', imageUrlWithCacheBusting);
+    }   else {
+      console.error('Upload failed with status:', response.status);
+    }
+  } catch (error) {
+    console.error('Upload failed:', error);
   }
   };
-  
+
+  const url = "https://res.cloudinary.com/your-cloud-name/image/upload/v1234567890/user_uploads/userId"+decoded.user_id+".jpg";
+  const timestamp = new Date().getTime(); 
+  useEffect(()=>{
+    setImageUrl(`${url}?t=${timestamp}`);
+  },)
 
   return (
     <div className="profile-page">
@@ -142,17 +196,31 @@ function Profile() {
         <>
           <div className="profile-content">
             <div className="profile-image-div">
+              <div className="profile-image-wrapper">
               <img
                 className="profile-image"
-                src={user?.profile_image || "default_image_url"}
+                src={'https://res.cloudinary.com/dhse9bpvs/image/upload/v1736604621/userId'+decoded.user_id+'.jpg' || "default_image_url"}
                 alt="Profile"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
               />
+              {profileHovered ? (<div 
+              className="profile-image-input-cover"
+              onClick={handleImageClick}
+              onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+              </div>) : null}
+              
+              
+
+
               <input
+                ref={imageInputRef}
                 type="file"
-                accept="image/*"
                 className="profile-image-input"
-                onChange={handleImageUpload}
-                
+                onChange={handleImageChange}
+                style={{display:'none'}}
               />
               {editableField === "image" && (
                 <>
@@ -162,7 +230,10 @@ function Profile() {
                   <button onClick={() => setEditableField(null)}>Cancel</button>
                 </>
               )}
-            </div>
+      </div>
+      {imageError && <p style={{ color: 'red', fontSize:"12px" }}>{imageError}</p>}
+
+      </div>
             <div className="details-div">
               <div className="details-left">
                 <div className="name-position-div">
