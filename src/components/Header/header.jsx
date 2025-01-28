@@ -1,10 +1,41 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./header.css";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Header = ({ role, authorizationStatus }) => {
   const [hovered, setHovered] = useState(false);
+  const [image, setImage]=useState(null);
+  const [error, setError]=useState(null);
   const timeoutRef = useRef(null);
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+
+  
+  useEffect(()=>{
+    if(token){
+      fetch("http://localhost/api/getImageUrl.php",{
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }, 
+      }).then((response)=>response.json())
+      .then((data) => {
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setImage(data.data);
+          console.log(data.data); 
+        }
+      })
+    }
+  },[token])
+
+
+
+
+
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -31,46 +62,39 @@ const Header = ({ role, authorizationStatus }) => {
   }
 
   function goToProfile() {
-    if (role === "user") {
       navigate("/profile");
-    } else if (role === "company") {
-      navigate("/profile-company");
-    }
+    
   }
-
   return (
-    <div className="header">
-      <div className="header-logo" onClick={()=>navigate("/home-page")}></div>
-      {(role === "company") && (
-        <button className="upload-job-btn" onClick={()=>navigate('/upload-job')}>Upload job</button>
-        )}
-      <nav className="header-navigation">
-        <ul className="header-list">
-          <li className="header-list-item">
+    <div className="header row p-2" style={{width:"100%"}}>
+      <div className="header-logo col-2" onClick={()=>navigate("/home-page")}></div>
+      <nav className="header-navigation d-none d-sm-flex col-6 offset-1 justify-content-center align-center ">
+        <ul className="header-list m-0 h-100 p-0">
+          <li className="header-list-item d-flex align-items-center">
             <a className="header-list-item-link" href="./home-page">Home</a>
           </li>
-          <li className="header-list-item">
+          <li className="header-list-item d-flex align-items-center">
             <a className="header-list-item-link"  href="/job-listings">Jobs</a>
           </li>
-          <li className="header-list-item">
+          <li className="header-list-item d-flex align-items-center">
             <a className="header-list-item-link"  href="/categories">Categories</a>
           </li>
-          <li className="header-list-item">
+          <li className="header-list-item d-flex align-items-center">
             <a className="header-list-item-link"  href="/about">About</a>
           </li>
-          <li className="header-list-item">
+          <li className="header-list-item d-flex align-items-center">
             <a className="header-list-item-link"  href="/contact">Contact</a>
           </li>
         </ul>
       </nav>
-      <div className="header-right-content-div">
+      <div className="header-right-content-div col-1 offset-8 offset-sm-1 d-flex  align-items-center">
         {authorizationStatus ? (
           <div
             className="header-profile-div"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="header-profile" onClick={goToProfile}></div>
+            <img className="header-profile" src={image?.profile_image} onClick={goToProfile}></img>
             <div
               className="header-profile-menu"
               onMouseEnter={handleMouseEnter}

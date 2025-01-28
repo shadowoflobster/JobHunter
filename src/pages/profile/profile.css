@@ -4,34 +4,13 @@
     align-items: center;
     flex-direction: column;
 }
-.details-left{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    margin-left: 5%;
-    margin-top: 1rem;
-    gap: 1rem;
-    }
+
 .details-name{
     font-size: 2rem;
 
 }
-.details-right{
-    width: 50%;
-    margin-top: 1rem;
-
-}
-.profile-content{
-    margin-top: 3rem;
-    height: fit-content;
-    width: 80%;
-    display: grid;
-    grid-template-columns: 33% 67%;
-    grid-template-rows:300px 500px ;
-    gap: 10px;
 
 
-}
 .profile-image-div{
     display: flex;
     flex-direction: column;
@@ -59,31 +38,17 @@
     position: absolute;
 
 }
-.edit-group.address{
-    
-}
-.details-div{
-    display: flex;
-    background-color: white;
-    justify-content: space-between;
-}
-.name-position-div{
-    display: flex;
-     align-items: center;
-     gap: 10px;
-     
-}
 
 .edit-group{
     position: relative;
 }
 .edit-pencil-icon{
     position: absolute;
-    top: -60%;
-    margin-left: 10px;
+    top: -5px;
+    right: -10px;
     cursor: pointer;
 }
-.skills-div{
+.skills-div , .company-profile-jobs-div{
     height: 100%;
     background-color: white;
     grid-column: 1/3;
@@ -107,4 +72,10 @@
     background-color: white;
     border: none;
     cursor: pointer;
+}
+.skills-jobs-header{
+    font-size: 2.25em;
+}
+.company-profile-job-content{
+    border: 1px solid rgba(0, 0, 0, 0.145);
 }

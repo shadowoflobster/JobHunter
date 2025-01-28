@@ -48,14 +48,9 @@ function LoginPage() {
     })
     .then((data) => {
         if(data.token){
-            localStorage.setItem('token', data.token);
-            
+            localStorage.setItem('token', data.token); 
            console.log(data);
-            if(data.role=='user'){
-              navigate("./profile")
-            }else if(data.role=='company'){
-                navigate("./profile-company")
-            }
+          navigate("./profile")
         }
     })
     .catch((error) => {
