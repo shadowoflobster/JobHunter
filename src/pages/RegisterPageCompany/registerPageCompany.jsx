@@ -25,7 +25,7 @@ function RegisterPageCompany(){
         };
     
         // Send the form data to the backend
-        fetch('http://localhost/api/registerCompany.php', {
+        fetch('http://192.168.100.7/api/registerCompany.php', {
             method: 'POST', // Ensure this is POST
             headers: {
                 'Content-Type': 'application/json',

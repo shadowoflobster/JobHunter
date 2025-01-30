@@ -146,7 +146,7 @@ function UploadJob() {
     console.log(data);
  
 
-    fetch("http://localhost/api/uploadJob.php", {
+    fetch("http://192.168.100.7/api/uploadJob.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

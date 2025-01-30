@@ -1,25 +1,28 @@
 import React, { useState, useRef, useEffect } from "react";
+import BurgerMenu from "../burgerMenu/BurgerMenu";
 import "./header.css";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+
 
 const Header = ({ role, authorizationStatus }) => {
   const [hovered, setHovered] = useState(false);
   const [image, setImage]=useState(null);
   const [error, setError]=useState(null);
+  const [burgerOpen, setBurgerOpen] = useState(false);
   const timeoutRef = useRef(null);
   const token = localStorage.getItem("token");
-  const decoded = jwtDecode(token);
-
-  
+  if (token) {
+    var decoded = jwtDecode(token);
+  }
   useEffect(()=>{
-    if(token){
-      fetch("http://localhost/api/getImageUrl.php",{
-        method: "GET",
+    if(token && decoded){
+      fetch("http://192.168.100.7/api/getImageUrl.php",{
+        method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         }, 
+        body: JSON.stringify({user_id: decoded.user_id, user_role: decoded.user_role}),
       }).then((response)=>response.json())
       .then((data) => {
         if (data.error) {
@@ -33,7 +36,15 @@ const Header = ({ role, authorizationStatus }) => {
   },[token])
 
 
-
+  const handleBurgerOpen=()=>{
+    if(burgerOpen){
+      setBurgerOpen(false);
+      console.log("burgerMenu: "+burgerOpen);
+    }else{
+      setBurgerOpen(true);
+      console.log("burgerMenu: "+burgerOpen);
+    }
+  }
 
 
 
@@ -67,6 +78,7 @@ const Header = ({ role, authorizationStatus }) => {
   }
   return (
     <div className="header row p-2" style={{width:"100%"}}>
+      
       <div className="header-logo col-2" onClick={()=>navigate("/home-page")}></div>
       <nav className="header-navigation d-none d-sm-flex col-6 offset-1 justify-content-center align-center ">
         <ul className="header-list m-0 h-100 p-0">
@@ -77,7 +89,7 @@ const Header = ({ role, authorizationStatus }) => {
             <a className="header-list-item-link"  href="/job-listings">Jobs</a>
           </li>
           <li className="header-list-item d-flex align-items-center">
-            <a className="header-list-item-link"  href="/categories">Categories</a>
+            <a className="header-list-item-link"  href="/categories-page">Categories</a>
           </li>
           <li className="header-list-item d-flex align-items-center">
             <a className="header-list-item-link"  href="/about">About</a>
@@ -104,8 +116,10 @@ const Header = ({ role, authorizationStatus }) => {
               <div className="header-profile-menu-item">Profile</div>
               <div className="header-profile-menu-item">Settings</div>
               <div className="header-profile-menu-item">Log out</div>
+              
             </div>
           </div>
+          
         ) : (
             <div className="header-authorize-div">
                 <button className="header-login-button" onClick={goToLogin}>Sign in</button>
@@ -113,7 +127,12 @@ const Header = ({ role, authorizationStatus }) => {
 
             </div>
         )}
+       
       </div>
+      <div className="col-1 d-flex d-sm-none align-items-center">
+      <i className="bi bi-list " style={{fontSize:"2rem",cursor:"pointer"}} onClick={()=>handleBurgerOpen()}></i>
+      </div>
+      {burgerOpen ? (<BurgerMenu></BurgerMenu>):null}
     </div>
   );
 };

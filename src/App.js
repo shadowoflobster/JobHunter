@@ -9,6 +9,7 @@ import UploadJob from "./pages/UploadJob/uploadJob";
 import JobListings from "./pages/JobListings/jobListings";
 import HomePage from "./pages/HomePage/HomePage";
 import JobPage from "./pages/JobPage/JobPage";
+import CategoriesPage from "./pages/CategoriesPage/categoriesPage";
 function App() {
 
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/upload-job" element={<UploadJob/>}/>
           <Route path="/job-listings" element={<JobListings/>}/>
           <Route path="/job-page" element={<JobPage/>}/>
+          <Route path="/categories-page" element={<CategoriesPage/>}/>
         </Routes>
       </div>
   );

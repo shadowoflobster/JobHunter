@@ -23,7 +23,7 @@ function JobPage() {
       setError("Error occuered, please return to home page");
       return;
     }
-    fetch(`http://localhost/api/getJob.php?jobId=${jobId}`, {
+    fetch(`http://192.168.100.7/api/getJob.php?jobId=${jobId}`, {
       method: "GET",
     })
       .then((response) => response.json())

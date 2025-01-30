@@ -1,10 +1,4 @@
 
-.profile-page{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
 .details-name{
     font-size: 2rem;
 

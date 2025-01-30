@@ -31,7 +31,7 @@ function LoginPage() {
       };
   
       // Send the form data to the backend
-      fetch('http://localhost/api/login.php', {
+      fetch('http://192.168.100.7/api/login.php', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',

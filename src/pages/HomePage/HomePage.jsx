@@ -21,7 +21,7 @@ function HomePage() {
       const decoded = jwtDecode(token);
       setRole(decoded.user_role);
     }
-    fetch("http://localhost/api/featuredJobs.php")
+    fetch("http://192.168.100.7/api/featuredJobs.php")
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "success") {
@@ -42,8 +42,9 @@ function HomePage() {
     });
   };
 
+
   return (
-    <div className="home-page-div d-flex flex-column justify-content-center align-items-center">
+    <div className="home-page-div gap-2 d-flex flex-column justify-content-center align-items-center">
       <Header role={role} authorizationStatus={authorization}></Header>
       {/*Content 1*/}
       <div className="home-page-content-1 col-12 d-flex flex-column justify-content-center align-items-center">
@@ -95,7 +96,7 @@ function HomePage() {
                     </div>
                   </div>
                   <div className="logo-and-title-container">
-                    <div className="logo-div"></div>
+                    <img className="logo-div" src={job.profile_image}></img>
                     <div className="home-page-listing-title text-truncate " style={{maxWidth:"18rem"}}>{job.title}</div>
                   </div>
                   <div className="home-page-job-details-div">

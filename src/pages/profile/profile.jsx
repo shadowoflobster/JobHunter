@@ -43,7 +43,7 @@ function Profile() {
       setAuthorization(true);
       setRole(token.user_role);
 
-      fetch("http://localhost/api/profile.php", {
+      fetch("http://192.168.100.7/api/profile.php", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -89,7 +89,7 @@ function Profile() {
     console.log("Parsed Skills:", parsedSkills);
     console.log("Updated Skills:", updatedSkills);
 
-    fetch("http://localhost/api/updateProfile.php", {
+    fetch("http://192.168.100.7/api/updateProfile.php", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -186,7 +186,7 @@ function Profile() {
   };
   console.log(user);
   return (
-    <div className="profile-page">
+    <div className="profile-page d-flex flex-column align-items-center">
       <Header role={role} authorizationStatus={authorization}></Header>
 
       {authorization && (
@@ -232,7 +232,7 @@ function Profile() {
                 <p style={{ color: "red", fontSize: "12px" }}>{imageError}</p>
               )}
             </div>
-            <div className="details-div col-12 col-md-7 row bg-white p-3">
+            <div className="details-div col-12 col-md-7 bg-white p-3">
               <div className="row">
                 <div className="col-12">
                   <div className="row justify-content-between ">
