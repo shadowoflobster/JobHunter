@@ -6,5 +6,11 @@ body {
     font-family: inherit; /* Inherit from root font-family */
   }
 .App{
-    background-color: #F8F8F8;
+    background-color: #504099;
+}
+
+a:focus,
+button:focus,
+input:focus {
+    outline: none;
 }

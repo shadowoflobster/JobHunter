@@ -74,12 +74,12 @@ const categoriesWithIcons = {
   }
 
 return(
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex flex-column align-items-center gap-2">
     <Header role={role} authorizationStatus={authorization}></Header>
     <div className="col-8 row g-2 align-items-center justify-content-center">
     {Object.entries(categoriesWithIcons).map(([category, icon], index) => (
       <div key={index} className="category m-1 col-12 col-sm-5 col-lg-3 d-flex flex-column justify-content-center align-items-center text-center rounded" 
-      style={{border:"1px solid grey", cursor:"pointer", height:"4.25rem"}}
+      style={{border:"1px solid grey", cursor:"pointer",color:"white", height:"4.25rem", backgroundColor:"#974ec3"}}
       onClick={()=>navigateToJobListings(category)}>
         <i className={`bi ${icon}`}></i> {category}
       </div>

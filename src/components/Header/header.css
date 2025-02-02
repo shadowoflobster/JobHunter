@@ -1,6 +1,7 @@
+
 .header-logo{
     height: 50px;
-    background-color: black;
+    background-color: rgb(225, 85, 85);
     cursor: pointer;
 }
 .header-profile-div{
@@ -55,26 +56,21 @@
     justify-content: center;
 
 }
-.header-authorize-div{
-    width: 20rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
+
 .header-login-button{
     height: 3rem;
-    width: 8rem;
-    background-color: black;
+    width: 9rem;
+    background-color: #974ec3;
+    outline: none;
+    border: 0;
     color: white;
     border-radius: 50px;
-    outline: none;
     cursor: pointer;
     
 }
 .header-signup-button{
     height: 3rem;
-    width: 8rem;
+    width: 9rem;
     background-color: white;
     color: black;
     border: 1px solid black;

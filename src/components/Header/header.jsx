@@ -4,49 +4,50 @@ import "./header.css";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
-
 const Header = ({ role, authorizationStatus }) => {
   const [hovered, setHovered] = useState(false);
-  const [image, setImage]=useState(null);
-  const [error, setError]=useState(null);
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState(null);
   const [burgerOpen, setBurgerOpen] = useState(false);
   const timeoutRef = useRef(null);
   const token = localStorage.getItem("token");
   if (token) {
     var decoded = jwtDecode(token);
+    console.log(token);
   }
-  useEffect(()=>{
-    if(token && decoded){
-      fetch("http://192.168.100.7/api/getImageUrl.php",{
+  useEffect(() => {
+    if (token && decoded) {
+      fetch("http://192.168.100.3/api/getImageUrl.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-        }, 
-        body: JSON.stringify({user_id: decoded.user_id, user_role: decoded.user_role}),
-      }).then((response)=>response.json())
-      .then((data) => {
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setImage(data.data);
-          console.log(data.data); 
-        }
+        },
+        body: JSON.stringify({
+          user_id: decoded.user_id,
+          user_role: decoded.user_role,
+        }),
       })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            setError(data.error);
+          } else {
+            setImage(data.data);
+            console.log(data.data);
+          }
+        });
     }
-  },[token])
+  }, [token]);
 
-
-  const handleBurgerOpen=()=>{
-    if(burgerOpen){
+  const handleBurgerOpen = () => {
+    if (burgerOpen) {
       setBurgerOpen(false);
-      console.log("burgerMenu: "+burgerOpen);
-    }else{
+      console.log("burgerMenu: " + burgerOpen);
+    } else {
       setBurgerOpen(true);
-      console.log("burgerMenu: "+burgerOpen);
+      console.log("burgerMenu: " + burgerOpen);
     }
-  }
-
-
+  };
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -65,7 +66,7 @@ const Header = ({ role, authorizationStatus }) => {
   function goToListings() {
     navigate("/job-listings");
   }
-  function goToLogin(){
+  function goToLogin() {
     navigate("/");
   }
   function goToRegister() {
@@ -73,40 +74,68 @@ const Header = ({ role, authorizationStatus }) => {
   }
 
   function goToProfile() {
-      navigate("/profile");
-    
+    navigate("/profile");
+  }
+  function logOut(){
+    navigate("/home-page")
+    localStorage.removeItem("token");
   }
   return (
-    <div className="header row p-2" style={{width:"100%"}}>
-      
-      <div className="header-logo col-2" onClick={()=>navigate("/home-page")}></div>
-      <nav className="header-navigation d-none d-sm-flex col-6 offset-1 justify-content-center align-center ">
+    <div
+      className="header row p-2 "
+      style={{ width: "100%", backgroundColor: "#313866" }}
+    >
+      <div
+        className="header-logo col-3"
+        onClick={() => navigate("/home-page")}
+      ></div>
+      <nav className="header-navigation d-none d-sm-flex col-6 justify-content-center align-center ">
         <ul className="header-list m-0 h-100 p-0">
           <li className="header-list-item d-flex align-items-center">
-            <a className="header-list-item-link" href="./home-page">Home</a>
+            <a className="header-list-item-link text-white" href="./home-page">
+              Home
+            </a>
           </li>
           <li className="header-list-item d-flex align-items-center">
-            <a className="header-list-item-link"  href="/job-listings">Jobs</a>
+            <a
+              className="header-list-item-link text-white"
+              href="/job-listings"
+            >
+              Jobs
+            </a>
           </li>
           <li className="header-list-item d-flex align-items-center">
-            <a className="header-list-item-link"  href="/categories-page">Categories</a>
+            <a
+              className="header-list-item-link text-white"
+              href="/categories-page"
+            >
+              Categories
+            </a>
           </li>
           <li className="header-list-item d-flex align-items-center">
-            <a className="header-list-item-link"  href="/about">About</a>
+            <a className="header-list-item-link text-white" href="/about">
+              About
+            </a>
           </li>
           <li className="header-list-item d-flex align-items-center">
-            <a className="header-list-item-link"  href="/contact">Contact</a>
+            <a className="header-list-item-link text-white" href="/contact">
+              Contact
+            </a>
           </li>
         </ul>
       </nav>
-      <div className="header-right-content-div col-1 offset-8 offset-sm-1 d-flex  align-items-center">
+      <div className="header-right-content-div d-flex col-3   align-items-center">
         {authorizationStatus ? (
           <div
             className="header-profile-div"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <img className="header-profile" src={image?.profile_image} onClick={goToProfile}></img>
+            <img
+              className="header-profile"
+              src={image?.profile_image}
+              onClick={goToProfile}
+            ></img>
             <div
               className="header-profile-menu"
               onMouseEnter={handleMouseEnter}
@@ -115,26 +144,36 @@ const Header = ({ role, authorizationStatus }) => {
             >
               <div className="header-profile-menu-item">Profile</div>
               <div className="header-profile-menu-item">Settings</div>
-              <div className="header-profile-menu-item">Log out</div>
-              
+              <div className="header-profile-menu-item"  onClick={() => logOut()}>Log out</div>
             </div>
           </div>
-          
         ) : (
-            <div className="header-authorize-div">
-                <button className="header-login-button" onClick={goToLogin}>Sign in</button>
-                <button className="header-signup-button" onClick={goToRegister}>Create an account</button>
-
-            </div>
+          <div className="d-none d-sm-flex gap-4 col-12">
+            <button
+              className="header-login-button d-flex align-items-center justify-content-center gap-1"
+              onClick={goToLogin}
+            >
+              <p className="p-0 m-0 d-none d-xl-flex">Sign in</p>
+              <i className="bi bi-box-arrow-in-right"></i>
+            </button>
+            <button className="header-signup-button d-flex align-items-center justify-content-center gap-1"
+             onClick={goToRegister}>
+              <p className="p-0 m-0 d-none d-xl-flex">Create an account</p>
+              <i className="bi bi-person-plus"></i>
+              
+            </button>
+          </div>
         )}
-       
       </div>
-      <div className="col-1 d-flex d-sm-none align-items-center">
-      <i className="bi bi-list " style={{fontSize:"2rem",cursor:"pointer"}} onClick={()=>handleBurgerOpen()}></i>
+      <div className="col-1 offset-5 d-flex d-sm-none align-items-center">
+        <i
+          className="bi bi-list "
+          style={{ fontSize: "2rem", cursor: "pointer" }}
+          onClick={() => handleBurgerOpen()}
+        ></i>
       </div>
-      {burgerOpen ? (<BurgerMenu></BurgerMenu>):null}
+      {burgerOpen ? <BurgerMenu authorizationStatus={authorizationStatus}></BurgerMenu> : null}
     </div>
   );
 };
 export default Header;
-

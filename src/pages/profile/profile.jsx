@@ -26,6 +26,7 @@ function Profile() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
+  
 
   const parsedSkills =
     user && user.skills
@@ -33,6 +34,8 @@ function Profile() {
         ? JSON.parse(user.skills)
         : user.skills
       : [];
+
+      
 
   const toggleEdit = (name) => {
     setEditableField((prevField) => (prevField === name ? null : name));
@@ -43,7 +46,7 @@ function Profile() {
       setAuthorization(true);
       setRole(token.user_role);
 
-      fetch("http://192.168.100.7/api/profile.php", {
+      fetch("http://192.168.100.3/api/profile.php", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -89,7 +92,7 @@ function Profile() {
     console.log("Parsed Skills:", parsedSkills);
     console.log("Updated Skills:", updatedSkills);
 
-    fetch("http://192.168.100.7/api/updateProfile.php", {
+    fetch("http://192.168.100.3/api/updateProfile.php", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -158,7 +161,7 @@ function Profile() {
       formData.append("public_id", "userId" + decoded.user_id);
 
       try {
-        const response = await fetch("http://localhost/api/uploadImage.php", {
+        const response = await fetch("http://192.168.100.3/api/uploadImage.php", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -232,12 +235,12 @@ function Profile() {
                 <p style={{ color: "red", fontSize: "12px" }}>{imageError}</p>
               )}
             </div>
-            <div className="details-div col-12 col-md-7 bg-white p-3">
+            <div className="details-div col-12 col-md-7 p-3 rounded-3" style={{backgroundColor:"#974ec3"}}>
               <div className="row">
                 <div className="col-12">
                   <div className="row justify-content-between ">
                     <div className="col-6 d-flex justify-content-between row">
-                    <span className="details-name col-12 text-break">
+                    <span className="details-name col-12 text-break text-white">
                     {user?.name || ""} {user?.surname || ""}
                   </span>
                   {decoded?.user_role == "user" ? (
@@ -530,7 +533,7 @@ function Profile() {
               </div>
             </div> */}
             {decoded?.user_role === "user" ? (
-              <div className="skills-div">
+              <div className="skills-div p-3 rounded-3" style={{backgroundColor:"#974ec3"}}>
                 <div className="skills-header-group">
                   <h1 className="skills-jobs-header">My Skills</h1>
                   <button
