@@ -125,10 +125,8 @@ function UploadJob() {
   useEffect(() => {
     if (token) {
       setAuthorization(true);
-      const decoded = jwtDecode(token); // Decode the JWT
-      companyId = decoded.user_id; // Assuming company_id is in the token payload
     }
-  });
+  }, [token]);
 
   const handleSubmit = (e) => {
     const data = {
@@ -140,16 +138,16 @@ function UploadJob() {
       maxSalary: formData.maxSalary,
       currency: formData.currency,
       location: formData.location,
-      company_id: companyId,
       category: formData.jobCategory,
     };
     console.log(data);
  
 
-    fetch("http://192.168.100.3/api/uploadJob.php", {
+    fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/uploadJob.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(data),
     })
@@ -171,13 +169,14 @@ function UploadJob() {
   };
 
   return (
-    <div className="UploadJobDiv">
+    <div className="UploadJobDiv d-flex flex-column justify-content-center align-items-center">
       <Header
         role="company"
         authorizationStatus={authorization ? true : false}
       ></Header>
+      <div className="d-flex flex-column justify-content-center" style={{backgroundColor:"#974ec3"}}>
       <form onSubmit={handleSubmit}>
-        <div className="group">
+        <div className="group d-flex flex-column" >
           <label htmlFor="job-title">Add job title</label>
           <input
             type="text"
@@ -189,7 +188,7 @@ function UploadJob() {
             placeholder="Enter job title"
           />
         </div>
-        <div className="group">
+        <div className="group d-flex flex-column" >
           <label htmlFor="job-title">Add job description</label>
           <input
             type="text"
@@ -201,7 +200,7 @@ function UploadJob() {
             placeholder="Enter job description"
           />
         </div>
-        <div className="group">
+        <div className="group d-flex flex-column" >
           <label htmlFor="job-title">Add job requirements</label>
           <input
             type="text"
@@ -228,7 +227,7 @@ function UploadJob() {
             ))}
           </ul>
         </div>
-        <div className="group">
+        <div className="group d-flex flex-column" >
           <div className="changeSalaryTypeDiv">
             <label className="changeSalaryTypeLabel" htmlFor="changeSalaryType">
               Fixed
@@ -280,9 +279,9 @@ function UploadJob() {
               />
             </div>
           )}
-          <div className="group">
+          <div className="group d-flex flex-column" >
             <select
-              className="currencySelector"
+              className="currencySelector "
               name="currency"
               value={formData.currency}
               onChange={handleChange}
@@ -329,6 +328,7 @@ function UploadJob() {
           <button type="submit">Submit</button>
         </div>
       </form>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,4 @@
-.changeSalaryTypeDiv{
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-.changeSalaryTypeLabel{
-    font-size: 12px;
-}
+
 .changeSalaryType{
     height: 15px;
     width: 30px;

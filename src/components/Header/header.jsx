@@ -7,17 +7,17 @@ import { jwtDecode } from "jwt-decode";
 const Header = ({ role, authorizationStatus }) => {
   const [hovered, setHovered] = useState(false);
   const [image, setImage] = useState(null);
-  const [error, setError] = useState(null);
   const [burgerOpen, setBurgerOpen] = useState(false);
   const timeoutRef = useRef(null);
   const token = localStorage.getItem("token");
-  if (token) {
-    var decoded = jwtDecode(token);
-    console.log(token);
-  }
+  
+
   useEffect(() => {
-    if (token && decoded) {
-      fetch("http://192.168.100.3/api/getImageUrl.php", {
+    if (token) {
+      var decoded = jwtDecode(token);
+
+
+      fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/getImageUrl.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,7 @@ const Header = ({ role, authorizationStatus }) => {
         .then((response) => response.json())
         .then((data) => {
           if (data.error) {
-            setError(data.error);
+            
           } else {
             setImage(data.data);
             console.log(data.data);
@@ -63,9 +63,7 @@ const Header = ({ role, authorizationStatus }) => {
 
   const navigate = useNavigate();
 
-  function goToListings() {
-    navigate("/job-listings");
-  }
+ 
   function goToLogin() {
     navigate("/");
   }
@@ -82,23 +80,23 @@ const Header = ({ role, authorizationStatus }) => {
   }
   return (
     <div
-      className="header row p-2 "
-      style={{ width: "100%", backgroundColor: "#313866" }}
+      className="header row p-2"
+      style={{ width: "100%"}}
     >
       <div
         className="header-logo col-3"
         onClick={() => navigate("/home-page")}
       ></div>
-      <nav className="header-navigation d-none d-sm-flex col-6 justify-content-center align-center ">
+      <nav className="header-navigation d-none d-sm-flex col-6 justify-content-center align-center">
         <ul className="header-list m-0 h-100 p-0">
           <li className="header-list-item d-flex align-items-center">
-            <a className="header-list-item-link text-white" href="./home-page">
+            <a className="header-list-item-link" href="./home-page">
               Home
             </a>
           </li>
           <li className="header-list-item d-flex align-items-center">
             <a
-              className="header-list-item-link text-white"
+              className="header-list-item-link"
               href="/job-listings"
             >
               Jobs
@@ -106,25 +104,25 @@ const Header = ({ role, authorizationStatus }) => {
           </li>
           <li className="header-list-item d-flex align-items-center">
             <a
-              className="header-list-item-link text-white"
+              className="header-list-item-link"
               href="/categories-page"
             >
               Categories
             </a>
           </li>
           <li className="header-list-item d-flex align-items-center">
-            <a className="header-list-item-link text-white" href="/about">
+            <a className="header-list-item-link" href="/about">
               About
             </a>
           </li>
           <li className="header-list-item d-flex align-items-center">
-            <a className="header-list-item-link text-white" href="/contact">
+            <a className="header-list-item-link" href="/contact">
               Contact
             </a>
           </li>
         </ul>
       </nav>
-      <div className="header-right-content-div d-flex col-3   align-items-center">
+      <div className="header-right-content-div d-flex col-3 offset-5 offset-sm-0  align-items-center">
         {authorizationStatus ? (
           <div
             className="header-profile-div"
@@ -133,6 +131,7 @@ const Header = ({ role, authorizationStatus }) => {
           >
             <img
               className="header-profile"
+              alt="profile"
               src={image?.profile_image}
               onClick={goToProfile}
             ></img>
@@ -165,7 +164,7 @@ const Header = ({ role, authorizationStatus }) => {
           </div>
         )}
       </div>
-      <div className="col-1 offset-5 d-flex d-sm-none align-items-center">
+      <div className="col-1 offset-0 offset-sm-5 d-flex d-sm-none align-items-center">
         <i
           className="bi bi-list "
           style={{ fontSize: "2rem", cursor: "pointer" }}

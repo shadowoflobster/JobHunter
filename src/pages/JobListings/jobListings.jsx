@@ -71,7 +71,7 @@ function JobListings(){
       console.log("This is it!!!!!!!!!!!!!:"+categoryFilter);
     }
   
-    fetch(`http://192.168.100.3/api/listJobs.php?category=${categoryFilter}`)
+    fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/listJobs.php?category=${categoryFilter}`)
         .then(response => response.json())
         .then(data =>{
             if(data.status === 'success'){
@@ -148,18 +148,18 @@ function JobListings(){
             return (
               <div className="col-6 col-sm-4 col-xl-2 d-flex p-2">
                   <div
-                    className="col-12 d-flex flex-column p-3 gap-3 rounded"
-                    style={{ backgroundColor: "#974ec3", cursor:"pointer" }}
+                    className="col-12 d-flex flex-column p-3 gap-3 rounded secondary-color"
+                    style={{cursor:"pointer" }}
                     key={job.id}
                     onClick={()=>handleNavigateToJob(job.id)}
                   >
                     <div className="col-12 rounde d-flex align-items-center justify-content-center" style={{height:"150px"}}>
                       <i className={categoriesWithIcons[job.category]} style={{fontSize:"6em", color:"white"}}></i>
                       </div>
-                    <div><p className="m-0 p-0" style={{color:"#BBBBB7", fontSize:"0.6em"}}>{job.category}</p>
+                    <div><p className="m-0 p-0 text-white" style={{ fontSize:"0.6em"}}>{job.category}</p>
                     <div className="text-white" style={{fontSize:"1em", height:"2rem", maxHeight:"2rem"}}>{truncateText(job.title,35)}</div>
-                    </div>
-                    <p className="text-white" style={{ fontSize: "0.6em", maxHeight:"1rem" }}>
+                    </div> 
+                    <p className="text-white overflow-hidden" style={{ fontSize: "0.6em", maxHeight:"1rem" }}>
                       {truncateText(job.description,80)}
                     </p>
                     <div className="d-flex  align-items-center justify-content-between">
@@ -179,7 +179,7 @@ function JobListings(){
                     </div>
                     <div className="col-12 d-flex align-items-center pt-2 gap-1" style={{borderTop:"1.5px solid #2c3c57"}}>
                       <img className="job-listing-company-image" src={job.profile_image}/>
-                      <p className="m-0 p-0" style={{fontSize:"0.5em", color:"#BBBBB7"}}>{job.company_name}</p>
+                      <p className="m-0 p-0 text-white" style={{fontSize:"0.5em"}}>{job.company_name}</p>
                     </div>
                   </div>
                 </div>

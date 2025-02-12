@@ -1,16 +1,52 @@
-body {
-  font-family: 'Roboto', sans-serif;
-}
+
   
-  body {
-    font-family: inherit; /* Inherit from root font-family */
-  }
+
 .App{
-    background-color: #504099;
+    background-color: #EDE8F5;
+}
+a,span,p {
+  font-family:sans-serif;
+  color: #474749;
 }
 
 a:focus,
 button:focus,
 input:focus {
     outline: none;
+}
+h1,h2,h3,h4,h5{
+  font-family: 'lato';
+  
+}
+h1{
+  color: #242847;
+}
+.base-color{
+  background-color: #ADBBDA;
+}
+
+.secondary-color{
+  background-color: #8697C4;
+}
+
+.component-color{
+  background-color: #7091E6;
+}
+.burger-menu-color{
+  background-color: #3D52A0;
+}
+@font-face {
+  font-family: 'lato';
+  src: url('../public/fonts/Lato-Regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-lato-normal{
+  font-family: 'lato';
+}
+
+.font-lato-normal-bold{
+  font-family: 'lato';
+  font-weight: 400;
 }

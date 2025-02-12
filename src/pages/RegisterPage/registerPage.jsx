@@ -32,7 +32,7 @@ function RegisterPage() {
       password: formData.password,
     };
 
-    fetch(`http://192.168.100.3/api/register${registrationRole}.php`, {
+    fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/register${registrationRole}.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

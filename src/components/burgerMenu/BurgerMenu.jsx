@@ -1,12 +1,11 @@
-import React,{useState} from "react";
+import React from "react";
 import './BurgerMenu.css';
 
 const BurgerMenu=({authorizationStatus})=>{
-    const [isOpen,setIsOpen] = useState(false);
     
     
     return(
-        <div className="burger-menu d-flex d-sm-none flex-column mt-5 gap-2 align-items-center justify-content-center p-1" style={{height:"fit-content",zIndex:"999"}}>
+        <div className="burger-menu burger-menu-color d-flex d-sm-none flex-column mt-5 gap-2 align-items-center justify-content-center p-1" style={{height:"fit-content",zIndex:"999"}}>
             <a className="text-white text-decoration-none text-center" href="/home-page">Home</a>
             <a className="text-white text-decoration-none text-center"href="/job-listings">Jobs</a>
             <a className="text-white text-decoration-none text-center"href="/categories-page">Categories</a>

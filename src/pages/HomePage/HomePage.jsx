@@ -63,7 +63,7 @@ function HomePage() {
       const decoded = jwtDecode(token);
       setRole(decoded.user_role);
     }
-    fetch("http://192.168.100.3/api/featuredJobs.php")
+    fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/featuredJobs.php`)
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "success") {
@@ -124,10 +124,10 @@ function HomePage() {
       <Header role={role} authorizationStatus={authorization}></Header>
       {/*Content 1*/}
       <div className="home-page-content-1 col-12 d-flex flex-column justify-content-center align-items-center">
-        <h1 className="home-page-header col-8 text-center text-white">
+        <h1 className="home-page-header col-8 text-center  ">
           Bringing You Closer to Your Career Goals.
         </h1>
-        <p className="text-center text-white">
+        <p className="text-center  ">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod sed
           do eiusmod
         </p>
@@ -154,7 +154,7 @@ function HomePage() {
 
       <div className="home-page-featured-jobs-div col-11">
         <div className="home-page-featured-jobs-head-div d-flex justify-content-between align-items-center">
-          <h1 className="home-page-featured-jobs-header text-white">Our Featured Jobs</h1>
+          <h1 className="home-page-featured-jobs-header d-sm-flex d-none">Our Featured Jobs</h1>
           <button
             className="home-page-featured-jobs-header-button"
             onClick={() => {
@@ -167,23 +167,23 @@ function HomePage() {
         {/*Home page listings*/}
         <div className="container w-100">
           {/*Job listings*/}
-          <div className="row g-5 g-xl-0">
+          <div className="row g-5 g-xl-0 justify-content-center">
             {jobs.map((job) => {
               return (
-                <div className="col-6 col-sm-4 col-xl-2 d-flex p-2">
+                <div className="col-10 col-sm-4 col-xl-2 d-flex p-2 ">
                   <div
-                    className="col-12 d-flex flex-column p-3 gap-3 rounded"
-                    style={{ backgroundColor: "#974ec3" }}
+                    className="col-12 d-flex flex-column p-3 gap-3 rounded secondary-color pb-2 "
+                    style={{cursor:"pointer"}}
                     key={job.id}
                     onClick={()=>handleNavigateToJob(job.id)}
                   >
                     <div className="col-12 rounde d-flex align-items-center justify-content-center" style={{height:"150px"}}>
                       <i className={categoriesWithIcons[job.category]} style={{fontSize:"6em", color:"white"}}></i>
                       </div>
-                    <div><p className="m-0 p-0" style={{color:"#BBBBB7", fontSize:"0.6em"}}>{job.category}</p>
-                    <div className="text-white" style={{fontSize:"1em", height:"2rem", maxHeight:"2rem"}}>{truncateText(job.title,35)}</div>
+                    <div><p className="m-0 p-0 text-white" style={{fontSize:"0.6em"}}>{job.category}</p>
+                    <div className="text-white " style={{fontSize:"1em", height:"2rem", maxHeight:"2rem"}}>{truncateText(job.title,35)}</div>
                     </div>
-                    <p className="text-white" style={{ fontSize: "0.6em", maxHeight:"1rem" }}>
+                    <p className="text-white overflow-hidden" style={{ fontSize: "0.6em", maxHeight:"1rem" }}>
                       {truncateText(job.description,80)}
                     </p>
                     <div className="d-flex  align-items-center justify-content-between">
@@ -201,9 +201,9 @@ function HomePage() {
                       </div>
                       <div className="text-white" style={{fontSize:"0.5em"}}>{getTimeAgo(job.updated_at)}</div>
                     </div>
-                    <div className="col-12 d-flex align-items-center pt-2 gap-1" style={{borderTop:"1.5px solid #2c3c57"}}>
+                    <div className="col-12 d-flex align-items-center pt-2 gap-1 mt-1" style={{borderTop:"1.5px solid #2c3c57"}}>
                       <img className="job-listing-company-image" src={job.profile_image}/>
-                      <p className="m-0 p-0" style={{fontSize:"0.5em", color:"#BBBBB7"}}>{job.company_name}</p>
+                      <p className="m-0 p-0 text-white" style={{fontSize:"0.7em"}}>{job.company_name}</p>
                     </div>
                   </div>
                 </div>
