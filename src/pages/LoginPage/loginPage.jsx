@@ -14,7 +14,8 @@ function LoginPage() {
 
   const navigate=useNavigate();
   const token = localStorage.getItem('token');
-  const apiUrl = process.env.REACT_APP_API_IP;
+  const apiUrl = process.env.REACT_APP_API_URL;
+  console.log("URRRURURURU:"+apiUrl);
   const handleChange = (e) => {
       const {name , value}= e.target;
       setFormData({
@@ -32,7 +33,7 @@ function LoginPage() {
       };
   
       // Send the form data to the backend
-      fetch(`${process.env.REACT_APP_API_IP}/backend/api/login.php`, {
+      fetch(`${process.env.REACT_APP_API_URL}/backend/api/login.php`, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',

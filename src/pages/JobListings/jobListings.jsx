@@ -71,7 +71,7 @@ function JobListings(){
       console.log("This is it!!!!!!!!!!!!!:"+categoryFilter);
     }
   
-    fetch(`${process.env.REACT_APP_API_IP}/backend/api/listJobs.php?category=${categoryFilter}`)
+    fetch(`${process.env.REACT_APP_API_URL}/backend/api/listJobs.php?category=${categoryFilter}`)
         .then(response => response.json())
         .then(data =>{
             if(data.status === 'success'){

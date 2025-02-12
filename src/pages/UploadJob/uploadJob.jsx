@@ -143,7 +143,7 @@ function UploadJob() {
     console.log(data);
  
 
-    fetch(`${process.env.REACT_APP_API_IP}/backend/api/uploadJob.php`, {
+    fetch(`${process.env.REACT_APP_API_URL}/backend/api/uploadJob.php`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
