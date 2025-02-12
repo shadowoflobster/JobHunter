@@ -23,7 +23,7 @@ function JobPage() {
       setError("Error occuered, please return to home page");
       return;
     }
-    fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/getJob.php?jobId=${jobId}`, {
+    fetch(`${process.env.REACT_APP_API_IP}/backend/api/getJob.php?jobId=${jobId}`, {
       method: "GET",
     })
       .then((response) => response.json())

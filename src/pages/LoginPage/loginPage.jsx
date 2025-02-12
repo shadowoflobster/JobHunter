@@ -31,7 +31,7 @@ function LoginPage() {
       };
   
       // Send the form data to the backend
-      fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/login.php`, {
+      fetch(`${process.env.REACT_APP_API_IP}/backend/api/login.php`, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',

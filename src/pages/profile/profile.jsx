@@ -46,7 +46,7 @@ function Profile() {
       setAuthorization(true);
       setRole(token.user_role);
 
-      fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/profile.php`, {
+      fetch(`${process.env.REACT_APP_API_IP}/backend/api/profile.php`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -92,7 +92,7 @@ function Profile() {
     console.log("Parsed Skills:", parsedSkills);
     console.log("Updated Skills:", updatedSkills);
 
-    fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/updateProfile.php`, {
+    fetch(`${process.env.REACT_APP_API_IP}/backend/api/updateProfile.php`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -161,7 +161,7 @@ function Profile() {
       formData.append("public_id", "userId" + decoded.user_id);
 
       try {
-        const response = await fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/uploadImage.php`, {
+        const response = await fetch(`${process.env.REACT_APP_API_IP}/backend/api/uploadImage.php`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,

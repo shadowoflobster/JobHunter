@@ -16,8 +16,8 @@ const Header = ({ role, authorizationStatus }) => {
     if (token) {
       var decoded = jwtDecode(token);
 
-
-      fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/getImageUrl.php`, {
+      console.log(process.env.REACT_APP_API_IP);
+      fetch(`${process.env.REACT_APP_API_IP}/backend/api/getImageUrl.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -63,7 +63,7 @@ function HomePage() {
       const decoded = jwtDecode(token);
       setRole(decoded.user_role);
     }
-    fetch(`http://${process.env.REACT_APP_API_IP}/backend/api/featuredJobs.php`)
+    fetch(`${process.env.REACT_APP_API_IP}/backend/api/featuredJobs.php`)
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "success") {
