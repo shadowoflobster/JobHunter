@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as  Route, Routes } from 'react-router-dom';
 import LoginPage from "./pages/LoginPage/loginPage";
 import RegisterPage from "./pages/RegisterPage/registerPage";
 import Profile from "./pages/profile/profile";
@@ -9,7 +9,7 @@ import JobListings from "./pages/JobListings/jobListings";
 import HomePage from "./pages/HomePage/HomePage";
 import CategoriesPage from "./pages/CategoriesPage/categoriesPage";
 import Footer from "./components/Footer/footer";
-import {ToastContainer, toast} from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
 
 function App() {
 
