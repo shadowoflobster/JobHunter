@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/header";
 import { useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import "./jobPage.css";
+import "./JobPage.css";
 
 function JobPage() {
   const location = useLocation();
