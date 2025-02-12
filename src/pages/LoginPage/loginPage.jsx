@@ -14,7 +14,7 @@ function LoginPage() {
 
   const navigate=useNavigate();
   const token = localStorage.getItem('token');
-
+  const apiUrl = process.env.REACT_APP_API_IP;
   const handleChange = (e) => {
       const {name , value}= e.target;
       setFormData({
@@ -22,6 +22,7 @@ function LoginPage() {
           [name] : value
       });
   };
+  
 
   const handleSubmit = (e)=>{
       e.preventDefault();
