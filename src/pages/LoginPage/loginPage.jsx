@@ -66,10 +66,9 @@ function LoginPage() {
       <div className="d-flex flex-column align-items-center justify-content-center">
          <Header></Header>
           <div className="d-flex flex-column col-10 col-sm-5 col-lg-3 align-items-center justify-content-center m-5 rounded-1" style={{height:"30rem", backgroundColor:"#974ec3"}}>
-          <h2 style={{color:"#504099"}}>Login</h2>
+          <h2 style={{color:"white"}}>Login</h2>
           <form className="d-flex col-10 flex-column gap-3" onSubmit={handleSubmit}>
-
-              <div className="group d-flex flex-column gap-1 text-white">
+            <div className="group d-flex flex-column gap-1 text-white">
                   <label htmlFor="email">Email:</label>
                   <input type="email"
                   id="email"
@@ -94,7 +93,7 @@ function LoginPage() {
               </div>
           <button type="submit" className="submitBtn text-white border-0 rounded" style={{height:"30px",backgroundColor:"#504099"}}>Submit</button>
           </form>
-          <span className="text-white">Doesn't have an account? <a className="text-white" href="./register">Create one now!</a></span>
+          <span className="text-white">Don't have an account? <a className="text-white" href="./register">Create one now!</a></span>
           </div>
       </div>
   );

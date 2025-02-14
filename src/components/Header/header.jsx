@@ -152,7 +152,7 @@ const Header = ({ role, authorizationStatus }) => {
               className="header-login-button d-flex align-items-center justify-content-center gap-1"
               onClick={goToLogin}
             >
-              <p className="p-0 m-0 d-none d-xl-flex">Sign in</p>
+              <p className="p-0 m-0 d-none d-xl-flex text-white">Sign in</p>
               <i className="bi bi-box-arrow-in-right"></i>
             </button>
             <button className="header-signup-button d-flex align-items-center justify-content-center gap-1"
