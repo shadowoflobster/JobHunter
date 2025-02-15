@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage/registerPage";
 import Profile from "./pages/profile/profile";
 import UploadJob from "./pages/UploadJob/uploadJob";
 import JobListings from "./pages/JobListings/jobListings";
+import JobPage from "./pages/JobPage/JobPage"
 import HomePage from "./pages/HomePage/HomePage";
 import CategoriesPage from "./pages/CategoriesPage/categoriesPage";
 import Footer from "./components/Footer/footer";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/home-page" element={<HomePage/>}/>
           <Route path="/" element={<LoginPage/>}/>
           <Route path="/register" element={<RegisterPage/>}/>
+          <Route path="/job-page" element={<JobPage/>}/>
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/upload-job" element={<UploadJob/>}/>
           <Route path="/job-listings" element={<JobListings/>}/>
