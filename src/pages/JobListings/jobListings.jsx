@@ -14,6 +14,8 @@ function JobListings(){
     const location = useLocation();    
     const {categoryFilter} = location.state || {};
     const [role, setRole] = useState();
+    const [pages, setPages] =  useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const navigate=useNavigate();
     const categoriesWithIcons = {
       "IT": "bi-pc-display",
@@ -71,20 +73,22 @@ function JobListings(){
       console.log("This is it!!!!!!!!!!!!!:"+categoryFilter);
     }
   
-    fetch(`${process.env.REACT_APP_API_URL}/backend/api/listJobs.php?category=${categoryFilter}`)
+    fetch(`${process.env.REACT_APP_API_URL}/backend/api/listJobs.php?category=${categoryFilter}&page=${currentPage}`)
         .then(response => response.json())
         .then(data =>{
             if(data.status === 'success'){
                 setJobs(data.data);
+                setPages(data.pages);
             }else{
-                setError(data.message);        }
+                setError(data.message);        
+              }
     })
     .catch(() => {
         setError('Failed to fetch data.'); 
       })
       .finally(() => setLoading(false));
     
-    },[]);
+    },[currentPage]);
     if(loading) return <p>loading...</p>;
     
     const handleNavigateToJob = (id) => {
@@ -92,6 +96,10 @@ function JobListings(){
         state: { jobId: id },
       });
     };
+    const hadnlePagingation = (p) =>{
+      setCurrentPage(p);
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
 
     const formatDate=(timestamp)=>{
       const date = new Date(timestamp.replace(" ", "T"));
@@ -185,6 +193,11 @@ function JobListings(){
                 </div>
             );
           })}
+          <div className='d-flex justify-content-center gap-2 mt-2 mb-4'>
+          {Array.from({length: pages }, (_,i)=>(
+            <button className='page-button' key={i} onClick={()=>hadnlePagingation(i+1)}>{i+1}</button>
+          ))}
+          </div>
         </div>
         </div>
       );
@@ -194,42 +207,3 @@ function JobListings(){
 export default JobListings;
 
 
-// <div className='job-listings-container'>
-//              <div className='job-div'>
-//                 <div className='job-time-and-location-div-container'>
-//                 <div className='job-time-and-location-div'>Full Time</div>
-//                 <div className='job-time-and-location-div'>Glendale, CA</div>
-//                 </div>
-//                 <div className='logo-and-title-container'>
-//                     <div className='logo-div'></div>
-//                     <div className='listing-title'>Product Manager</div>
-//                 </div>
-//              </div>
-             
-             
-             
-             
-             
-             
-             
-             
-             
-//              <div className='job-div'>
-//                 <div className='job-time-and-location-div-container'>
-//                 <div className='job-time-and-location-div'>Full Time</div>
-//                 <div className='job-time-and-location-div'>Glendale, CA</div>
-//                 </div>
-//              </div> <div className='job-div'>
-//                 <div className='job-time-and-location-div-container'>
-//                 <div className='job-time-and-location-div'>Full Time</div>
-//                 <div className='job-time-and-location-div'>Glendale, CA</div>
-//                 </div>
-//              </div> <div className='job-div'>
-//                 <div className='job-time-and-location-div-container'>
-//                 <div className='job-time-and-location-div'>Full Time</div>
-//                 <div className='job-time-and-location-div'>Glendale, CA</div>
-//                 </div>
-//              </div>
-                
-                
-//             </div>

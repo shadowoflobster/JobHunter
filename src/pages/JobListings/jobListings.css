@@ -1,0 +1,11 @@
+.page-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: none;
+    color: grey;
+    background: inherit;
+}
