@@ -77,13 +77,13 @@ function RegisterPage() {
     <div className="d-flex flex-column align-items-center justify-content-center">
       <Header></Header>
       <div
-        className="d-flex flex-column col-10 col-sm-5 col-lg-3 align-items-center  m-5 rounded-1"
-        style={{ height: "35rem", backgroundColor: "#974ec3" }}
+        className="component-color d-flex flex-column col-10 col-sm-5 col-lg-3 align-items-center  m-5 rounded-1"
+        style={{ height: "35rem"}}
       >
         <h2 style={{ color: "white", margin: "2rem" }}>
           {isCompany ? <>Register as company</> : <>Register</>}
         </h2>
-        <div className="col-10 d-flex" style={{ backgroundColor: "#974ec3" }}>
+        <div className="col-10 d-flex" style={{ backgroundColor: "inherit" }}>
           <div
             className="col-6 text-center text-white"
             style={{ cursor: "pointer", borderRight: "1px solid #313866", borderBottom: isCompany ? "2px solid #313866" : "none"}}
@@ -158,8 +158,8 @@ function RegisterPage() {
           </div>
           <button
             type="submit"
-            className="submitBtn text-white border-0 rounded"
-            style={{ height: "30px", backgroundColor: "#504099" }}
+            className="button-color submitBtn text-white border-0 rounded"
+            style={{ height: "30px" }}
           >
             Register
           </button>
