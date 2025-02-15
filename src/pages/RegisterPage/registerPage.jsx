@@ -80,7 +80,7 @@ function RegisterPage() {
         className="d-flex flex-column col-10 col-sm-5 col-lg-3 align-items-center  m-5 rounded-1"
         style={{ height: "35rem", backgroundColor: "#974ec3" }}
       >
-        <h2 style={{ color: "#504099", margin: "2rem" }}>
+        <h2 style={{ color: "white", margin: "2rem" }}>
           {isCompany ? <>Register as company</> : <>Register</>}
         </h2>
         <div className="col-10 d-flex" style={{ backgroundColor: "#974ec3" }}>
